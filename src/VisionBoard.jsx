@@ -123,8 +123,9 @@ export default function VisionBoard() {
     </div>
   );
 }
-
-      <div className="text-center mt-8 text-gray-500 text-sm">
+{
+  (   
+    <div className="text-center mt-8 text-gray-500 text-sm">
         <p>Copyright (c) 2024 410 Morning. All rights reserved.</p>
         <p>
           This software and its associated documentation files (the "Software") are the property of 410 Morning.
@@ -133,7 +134,6 @@ export default function VisionBoard() {
           For licensing inquiries, please contact support@410morning.com.
         </p>
       </div>
-    </div>
   );
 }
 
