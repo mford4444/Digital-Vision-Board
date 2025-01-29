@@ -11,43 +11,53 @@ export default function VisionBoard() {
         title: "Define Your Core Vision (Clarity & Focus)",
         description:
           "Clearly articulate what you want to achieve in different areas of life. Write down 3-5 major SMART goals.",
+        prompt: "Write down your goals in each category:",
         categories: [
-          {
-            name: "Health & Fitness",
-            images: ["", "", "", ""]
-          },
-          {
-            name: "Wealth & Financial Growth",
-            images: ["", "", "", ""]
-          },
-          {
-            name: "Business/Career",
-            images: ["", "", "", ""]
-          },
-          {
-            name: "Relationships & Social Life",
-            images: ["", "", "", ""]
-          }
+          { name: "Health & Fitness", images: ["", "", "", ""], goal: "" },
+          { name: "Wealth & Financial Growth", images: ["", "", "", ""], goal: "" },
+          { name: "Business/Career", images: ["", "", "", ""], goal: "" },
+          { name: "Relationships & Social Life", images: ["", "", "", ""], goal: "" }
         ],
+      },
+      {
+        title: "Find Visual & Emotional Anchors (Psychological Priming)",
+        description:
+          "Select images, quotes, and symbols that trigger strong emotions and align with your vision.",
+        prompt: "Describe what images, words, or symbols will inspire you:",
+      },
+      {
+        title: "Structure Your Vision Board (Organized Clarity)",
+        description:
+          "Create a structured and intentional layout that reinforces focus. Options: Physical, Digital, or Hybrid Approach.",
+        prompt: "How will you structure your vision board?",
+      },
+      {
+        title: "Link Your Vision to Actionable Steps (Implementation Intentions)",
+        description:
+          "Convert inspiration into a realistic execution plan. List 2-3 key action steps for each goal.",
+        prompt: "What are the actionable steps for each goal?",
+      },
+      {
+        title: "Reinforce & Review (Behavioral Consistency)",
+        description:
+          "Keep your vision board top-of-mind and actively engage with it through daily and weekly rituals.",
+        prompt: "What habits will help you stay consistent?",
+      },
+      {
+        title: "Track Progress & Reward Milestones",
+        description:
+          "Measure results and build momentum. Use a habit tracker or goal planner to track progress.",
+        prompt: "How will you track progress and celebrate milestones?",
       }
     ],
     showPreview: false,
     isMobileView: false
   });
 
-  const handleInputChange = (stepIndex, categoryIndex, imageIndex, value) => {
-    setState((prevState) => {
-      const updatedSteps = [...prevState.steps];
-      updatedSteps[stepIndex].categories[categoryIndex].images[imageIndex] = value;
-      return { ...prevState, steps: updatedSteps };
-    });
-  };
-
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">410 Morning - Vision Board Steps</h1>
       <p className="mb-4 text-gray-600">Follow these six steps to build a powerful vision board.</p>
-
       {!state.showPreview ? (
         <div className="grid gap-6">
           {state.steps.map((step, index) => (
@@ -55,20 +65,26 @@ export default function VisionBoard() {
               <CardContent>
                 <h2 className="text-xl font-semibold mb-2">{step.title}</h2>
                 <p className="mb-2 text-gray-700">{step.description}</p>
+                {step.prompt && <Textarea placeholder={step.prompt} className="w-full p-2 border rounded-md" />}
                 {step.categories && (
                   <div>
                     {step.categories.map((category, i) => (
                       <div key={i} className="mb-4">
                         <h3 className="text-lg font-semibold">{category.name}</h3>
+                        <Textarea
+                          placeholder={`Enter your goal for ${category.name}`}
+                          className="w-full p-2 border rounded-md"
+                        />
                         <div className="grid grid-cols-2 gap-2">
                           {category.images.map((image, j) => (
-                            <Input
-                              key={j}
-                              type="text"
-                              placeholder={`Image URL ${j + 1}`}
-                              value={image}
-                              onChange={(e) => handleInputChange(index, i, j, e.target.value)}
-                            />
+                            <div key={j} className="flex flex-col gap-2">
+                              <Input
+                                type="text"
+                                placeholder={`Image URL ${j + 1}`}
+                                value={image}
+                              />
+                              <input type="file" accept="image/*" />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -104,6 +120,10 @@ export default function VisionBoard() {
           <Button onClick={() => setState((prevState) => ({ ...prevState, showPreview: false }))}>Edit Vision Board</Button>
         </div>
       )}
+    </div>
+  );
+}
+
       <div className="text-center mt-8 text-gray-500 text-sm">
         <p>Copyright (c) 2024 410 Morning. All rights reserved.</p>
         <p>
