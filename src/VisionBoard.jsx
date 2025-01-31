@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2024 Acelero. All rights reserved.
+ * This software and its associated documentation files (the "Software") 
+ * are the property of Acelero. The Software may not be copied, modified, 
+ * distributed, sublicensed, or sold without prior written permission. 
+ * Unauthorized use, reproduction, or distribution of this Software is strictly prohibited
+ * and may result in legal action. For licensing inquiries, please contact support@acelero.co.
+ */
+
 import React, { useState } from "react";
 import { Card, CardContent } from "./components/ui/card";
 import { Button } from "./components/ui/button";
@@ -10,44 +19,44 @@ export default function VisionBoard() {
       {
         title: "Define Your Core Vision (Clarity & Focus)",
         description:
-          "Clearly articulate what you want to achieve in different areas of life. Write down 3-5 major SMART goals.",
-        prompt: "Write down your goals in each category:",
+          "Clearly articulate what you want to achieve in different areas of life. Write down 1-2 key SMART goals per category.",
+        prompt: "Write down your 1-2 key goals in each category:",
         categories: [
-          { name: "Health & Fitness", images: ["", "", "", ""], goal: "" },
-          { name: "Wealth & Financial Growth", images: ["", "", "", ""], goal: "" },
-          { name: "Business/Career", images: ["", "", "", ""], goal: "" },
-          { name: "Relationships & Social Life", images: ["", "", "", ""], goal: "" }
-        ],
+          { name: "Health & Fitness", goals: ["", ""], images: ["", "", "", ""] },
+          { name: "Wealth & Financial Growth", goals: ["", ""], images: ["", "", "", ""] },
+          { name: "Business/Career", goals: ["", ""], images: ["", "", "", ""] },
+          { name: "Relationships & Social Life", goals: ["", ""], images: ["", "", "", ""] }
+        ]
       },
       {
         title: "Find Visual & Emotional Anchors (Psychological Priming)",
         description:
           "Select images, quotes, and symbols that trigger strong emotions and align with your vision.",
-        prompt: "Describe what images, words, or symbols will inspire you:",
+        prompt: "Describe what images, words, or symbols will inspire you:"
       },
       {
         title: "Structure Your Vision Board (Organized Clarity)",
         description:
           "Create a structured and intentional layout that reinforces focus. Options: Physical, Digital, or Hybrid Approach.",
-        prompt: "How will you structure your vision board?",
+        prompt: "How will you structure your vision board?"
       },
       {
         title: "Link Your Vision to Actionable Steps (Implementation Intentions)",
         description:
           "Convert inspiration into a realistic execution plan. List 2-3 key action steps for each goal.",
-        prompt: "What are the actionable steps for each goal?",
+        prompt: "What are the actionable steps for each goal?"
       },
       {
         title: "Reinforce & Review (Behavioral Consistency)",
         description:
           "Keep your vision board top-of-mind and actively engage with it through daily and weekly rituals.",
-        prompt: "What habits will help you stay consistent?",
+        prompt: "What habits will help you stay consistent?"
       },
       {
         title: "Track Progress & Reward Milestones",
         description:
           "Measure results and build momentum. Use a habit tracker or goal planner to track progress.",
-        prompt: "How will you track progress and celebrate milestones?",
+        prompt: "How will you track progress and celebrate milestones?"
       }
     ],
     showPreview: false,
@@ -56,7 +65,7 @@ export default function VisionBoard() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">410 Morning - Vision Board Steps</h1>
+      <h1 className="text-2xl font-bold mb-4">Acelero - Vision Board Steps</h1>
       <p className="mb-4 text-gray-600">Follow these six steps to build a powerful vision board.</p>
       {!state.showPreview ? (
         <div className="grid gap-6">
@@ -65,28 +74,19 @@ export default function VisionBoard() {
               <CardContent>
                 <h2 className="text-xl font-semibold mb-2">{step.title}</h2>
                 <p className="mb-2 text-gray-700">{step.description}</p>
-                {step.prompt && <Textarea placeholder={step.prompt} className="w-full p-2 border rounded-md" />}
                 {step.categories && (
                   <div>
                     {step.categories.map((category, i) => (
                       <div key={i} className="mb-4">
                         <h3 className="text-lg font-semibold">{category.name}</h3>
-                        <Textarea
-                          placeholder={`Enter your goal for ${category.name}`}
-                          className="w-full p-2 border rounded-md"
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          {category.images.map((image, j) => (
-                            <div key={j} className="flex flex-col gap-2">
-                              <Input
-                                type="text"
-                                placeholder={`Image URL ${j + 1}`}
-                                value={image}
-                              />
-                              <input type="file" accept="image/*" />
-                            </div>
-                          ))}
-                        </div>
+                        {category.goals.map((goal, j) => (
+                          <Input
+                            key={j}
+                            type="text"
+                            placeholder={`Goal ${j + 1}`}
+                            className="w-full p-2 border rounded-md"
+                          />
+                        ))}
                       </div>
                     ))}
                   </div>
@@ -123,6 +123,7 @@ export default function VisionBoard() {
     </div>
   );
 }
+
 {
   (   
     <div className="text-center mt-8 text-gray-500 text-sm">
