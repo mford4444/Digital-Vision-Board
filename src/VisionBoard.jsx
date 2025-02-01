@@ -79,8 +79,10 @@ export default function VisionBoard() {
                     {step.categories.map((category, i) => (
                       <div key={i} className="mb-4">
                         <h3 className="text-lg font-semibold">{category.name}</h3>
-                        <p className='text-sm text-gray-600 mb-2'>Select images, quotes, and symbols that trigger strong emotions and align with your vision and goals for {category.name}.</p>
-                        <p className='text-sm text-gray-600 mb-2'>Select images, quotes, and symbols that trigger strong emotions and align with your vision and goals.</p>
+                        
+                        
+                        
+                        
                         {category.goals.map((goal, j) => (
                           <Input
                             key={j}
@@ -114,8 +116,21 @@ export default function VisionBoard() {
                     {category.images.map((image, j) => (
                       image ? <img key={j} src={image} alt={`Preview ${category.name} ${j + 1}`} className={`rounded-lg ${state.isMobileView ? 'w-3/4 h-40 object-cover' : 'w-full h-32 object-cover'}`} /> : null
                     ))}
-                  </div>
-                </CardContent>
+                  
+                        <div className='grid grid-cols-2 gap-2 mt-4'>
+                          {category.images.map((image, j) => (
+                            <div key={j} className='flex flex-col gap-2'>
+                              <Input
+                                type='text'
+                                placeholder={`Image URL ${j + 1}`}
+                                value={image}
+                              />
+                              <input type='file' accept='image/*' />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
               </Card>
             ))}
           </div>
