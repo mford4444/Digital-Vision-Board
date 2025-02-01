@@ -77,6 +77,43 @@ export default function VisionBoard() {
                 {step.categories && (
                   <div>
                     {step.categories.map((category, i) => (
+                      <div key={i} className='mb-4'>
+                        <h3 className='text-lg font-semibold'>{category.name}</h3>
+                        <div className='grid grid-cols-2 gap-2 mt-4'>
+                          {category.images.map((image, j) => (
+                            <div key={j} className='flex flex-col gap-2'>
+                              <Input
+                                type='text'
+                                placeholder={`Image URL ${j + 1}`}
+                                value={image}
+                                onChange={(e) => {
+                                  const updatedState = { ...state };
+                                  updatedState.steps[0].categories[i].images[j] = e.target.value;
+                                  setState(updatedState);
+                                }}
+                              />
+                              <input 
+                                type='file' 
+                                accept='image/*' 
+                                onChange={(e) => {
+                                  const file = e.target.files[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => {
+                                      const updatedState = { ...state };
+                                      updatedState.steps[0].categories[i].images[j] = reader.result;
+                                      setState(updatedState);
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    {step.categories.map((category, i) => (
                       <div key={i} className="mb-4">
                         <h3 className="text-lg font-semibold">{category.name}</h3>
                         
@@ -109,9 +146,23 @@ export default function VisionBoard() {
           </div>
           <div className={state.isMobileView ? "flex flex-col gap-4 items-center" : "grid grid-cols-2 gap-4"}>
             {state.steps[0].categories.map((category, i) => (
+              <Card key={i} className='p-4 border border-gray-300 rounded-lg shadow-md w-full'>
+                <CardContent>
+                  <h3 className='text-lg font-semibold mb-2'>{category.name}</h3>
+                  <div className={state.isMobileView ? 'flex flex-col gap-4' : 'grid grid-cols-2 gap-2'}>
+                    {category.images.map((image, j) => (
+                      image ? <img key={j} src={image} alt={`Preview ${category.name} ${j + 1}`} className={`rounded-lg ${state.isMobileView ? 'w-3/4 h-40 object-cover' : 'w-full h-32 object-cover'}`} /> : null
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+            {state.steps[0].categories.map((category, i) => (
               <Card key={i} className="p-4 border border-gray-300 rounded-lg shadow-md w-full">
                 <CardContent>
-                  <h3 className="text-lg font-semibold mb-2">{category.name}</h3>
+                  
+                        $1
+                        <p className='text-sm text-gray-600 mb-2'>Select images, quotes, and symbols that trigger strong emotions and align with your vision and goals for {category.name}.</p>
                   <div className={state.isMobileView ? "flex flex-col gap-4" : "grid grid-cols-2 gap-2"}>
                     {category.images.map((image, j) => (
                       image ? <img key={j} src={image} alt={`Preview ${category.name} ${j + 1}`} className={`rounded-lg ${state.isMobileView ? 'w-3/4 h-40 object-cover' : 'w-full h-32 object-cover'}`} /> : null
