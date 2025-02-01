@@ -79,6 +79,8 @@ export default function VisionBoard() {
                     {step.categories.map((category, i) => (
                       <div key={i} className="mb-4">
                         <h3 className="text-lg font-semibold">{category.name}</h3>
+                        <p className='text-sm text-gray-600 mb-2'>Select images, quotes, and symbols that trigger strong emotions and align with your vision and goals for {category.name}.</p>
+                        <p className='text-sm text-gray-600 mb-2'>Select images, quotes, and symbols that trigger strong emotions and align with your vision and goals.</p>
                         {category.goals.map((goal, j) => (
                           <Input
                             key={j}
